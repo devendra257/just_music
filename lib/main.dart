@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 
 import 'package:just_music/pages/play_list.dart';
+import 'package:just_music/pages/saavan.dart';
 
 Future<void> main() async {
   await JustAudioBackground.init(
@@ -9,7 +10,7 @@ Future<void> main() async {
     androidNotificationChannelName: 'Audio playback',
     androidNotificationOngoing: true,
   );
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

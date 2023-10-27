@@ -200,45 +200,49 @@ class _PlayListState extends State<PlayList> {
                     stream: player.sequenceStateStream,
                     builder: (_, snapshot) {
                       var state = snapshot.data;
+                      // print(player.sequenceStateStream);
+                      if (state != null) {
+                        if (state.sequence.isNotEmpty) {
+                          var metadata = state.currentSource!.tag;
 
-                      if (state!.sequence.isNotEmpty) {
-                        var metadata = state.currentSource!.tag;
-                        return Column(
-                          children: [
-                            DecoratedBox(
-                              decoration: BoxDecoration(
-                                boxShadow: const [
-                                  BoxShadow(
-                                    color: Colors.black26,
-                                    offset: Offset(2, 4),
-                                    blurRadius: 4,
-                                  )
-                                ],
-                                borderRadius: BorderRadius.circular(11),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: CachedNetworkImage(
-                                  imageUrl: "${metadata.artUri}",
-                                  fit: BoxFit.cover,
-                                  width: 300,
-                                  height: 300,
+                          return Column(
+                            children: [
+                              DecoratedBox(
+                                decoration: BoxDecoration(
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Colors.black26,
+                                      offset: Offset(2, 4),
+                                      blurRadius: 4,
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(11),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: CachedNetworkImage(
+                                    imageUrl: "${metadata.artUri}",
+                                    fit: BoxFit.cover,
+                                    width: 300,
+                                    height: 300,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Text(
-                              metadata.title != '' ? metadata.title : '',
-                              style: const TextStyle(
-                                fontSize: 40,
-                                fontWeight: FontWeight.bold,
+                              Text(
+                                metadata.title != ' ' ? metadata.title : "",
+                                style: const TextStyle(
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                          ],
-                        );
-                      } else if (state.sequence.isEmpty) {
-                        return const CircularProgressIndicator();
+                            ],
+                          );
+                        } else if (state.sequence.isEmpty) {
+                          return const CircularProgressIndicator();
+                        }
                       }
-                      return Container();
+
+                      return const CircularProgressIndicator();
                     },
                   ),
                   Padding(
@@ -368,7 +372,6 @@ class _PlayListState extends State<PlayList> {
       });
 
       player.play();
-      setState(() {});
     } catch (e) {
       print("Error is $e");
     }
